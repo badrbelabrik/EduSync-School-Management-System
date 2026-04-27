@@ -5,10 +5,10 @@ if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
     exit();
 }
-// if($_SESSION['role'] != 1){
-//     echo "unauthorized access";
-//     exit();
-// }
+if($_SESSION['role'] != 1){
+    echo "unauthorized access";
+    exit();
+}
 
 include("../includes/connection.php");
 include("../admin/functions.php");
@@ -35,11 +35,11 @@ $courses = getCourses($conn);
             <h1 class="text-2xl font-bold mb-10">EduSync</h1>
 
             <nav class="space-y-4">
-                <a href="dashboard.php" class="block bg-blue-500 px-4 py-3 rounded-lg font-medium">
+                <a href="dashboard.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
                     Dashboard
                 </a>
-
-                <a href="dashboard.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
+                
+                <a href="admin-users.php" class="block bg-blue-500 px-4 py-3 rounded-lg font-medium">
                     Users
                 </a>
 
@@ -134,7 +134,7 @@ $courses = getCourses($conn);
                                     <td class="p-5"><?php echo $user['firstname']; ?></td>
                                     <td class="p-5"><?php echo $user['lastname']; ?></td>
                                     <td class="p-5"><?php echo $user['email']; ?></td>
-                                    <td class="p-5"><?php echo "Mathematique"; ?></td>
+                                    <td class="p-5"><?php echo $user['class']; ?></td>
 
                                     <td class="p-5">
                                         <span class="bg-green-500 px-4 py-1 rounded-full">Active</span>
