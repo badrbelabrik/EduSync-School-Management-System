@@ -35,7 +35,7 @@ $courses = getCourses($conn);
             <h1 class="text-2xl font-bold mb-10">EduSync</h1>
 
             <nav class="space-y-4">
-                <a href="dashboard.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
+                <a href="dashboard-admin.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
                     Dashboard
                 </a>
                 

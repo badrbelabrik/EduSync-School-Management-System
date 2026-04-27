@@ -35,11 +35,11 @@ $courses = getCourses($conn);
             <h1 class="text-2xl font-bold mb-10">EduSync</h1>
 
             <nav class="space-y-4">
-                <a href="dashboard.php" class="block bg-blue-500 px-4 py-3 rounded-lg font-medium">
+                <a href="dashboard-admin.php" class="block bg-blue-500 px-4 py-3 rounded-lg font-medium">
                     Dashboard
                 </a>
 
-                <a href="dashboard.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
+                <a href="admin-users.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
                     Users
                 </a>
 
@@ -84,18 +84,18 @@ $courses = getCourses($conn);
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
 
                     <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Total Étudiants</h3>
-                        <p class="text-4xl font-bold">20</p>
+                        <h3 class="text-3xl font-bold mb-4">Total students</h3>
+                        <p class="text-4xl font-bold"><?php echo count($users)?></p>
                     </div>
 
                     <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Étudiants Actifs</h3>
-                        <p class="text-4xl font-bold">16</p>
+                        <h3 class="text-3xl font-bold mb-4">Total classes</h3>
+                        <p class="text-4xl font-bold"><?php echo count($classes)?></p>
                     </div>
 
                     <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Étudiants Inactifs</h3>
-                        <p class="text-4xl font-bold">4</p>
+                        <h3 class="text-3xl font-bold mb-4">Total courses</h3>
+                        <p class="text-4xl font-bold"><?php echo count($courses)?></p>
                     </div>
 
                 </div>
@@ -119,11 +119,10 @@ $courses = getCourses($conn);
                     <table class="w-full text-white">
                         <thead class="bg-blue-950">
                             <tr>
-                                <th class="text-left p-5">Nom</th>
-                                <th class="text-left p-5">Prénom</th>
+                                <th class="text-left p-5">First name</th>
+                                <th class="text-left p-5">Last name</th>
                                 <th class="text-left p-5">Email</th>
-                                <th class="text-left p-5">Group</th>
-                                <th class="text-left p-5">Statut</th>
+                                <th class="text-left p-5">Role</th>
                                 <th class="text-left p-5">Actions</th>
                             </tr>
                         </thead>
@@ -134,12 +133,13 @@ $courses = getCourses($conn);
                                     <td class="p-5"><?php echo $user['firstname']; ?></td>
                                     <td class="p-5"><?php echo $user['lastname']; ?></td>
                                     <td class="p-5"><?php echo $user['email']; ?></td>
-                                    <td class="p-5"><?php echo "Mathematique"; ?></td>
-
-                                    <td class="p-5">
-                                        <span class="bg-green-500 px-4 py-1 rounded-full">Active</span>
-                                    </td>
-
+                                    <td class="p-5"><?php if($user['id_role'] == 1){
+                                        echo "<p class='text-red-500'>Admin</p>";
+                                    } else if($user['id_role'] == 2){
+                                        echo "Teacher";
+                                    } else if($user['id_role'] == 3){
+                                        echo "Student";
+                                    } ?></td>
                                     <td class="p-5 space-x-3">
                                         <a href="#">Edit</a>
 
