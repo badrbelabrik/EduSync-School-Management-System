@@ -135,7 +135,44 @@ function loginUser($con,$email,$password){
         $_SESSION["email"] = $userExist["email"];
         $_SESSION["role"] = $userExist["id_role"];
 
-        header("location: ../public/dashboard.php");
-        exit();
+        if($_SESSION["role"] == 1){
+            header("location: ../public/dashboard-admin.php");
+            exit();
+        } else if($_SESSION["role"] == 2){
+            header("location: ../public/dashboard-prof.php");
+            exit();
+        } else if($_SESSION["role"] == 3){
+            header("location: ../public/dashboard-student.php");
+            exit();
+        }
+        
     
+}
+
+function getUsers($conn) {
+    $stmt = $conn->prepare("SELECT * FROM users");
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getClasses($conn) {
+    $stmt = $conn->prepare("SELECT * FROM classes");
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getCourses($conn) {
+    $stmt = $conn->prepare("SELECT * FROM courses");
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getStudents($conn) {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id_role = 3");
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
