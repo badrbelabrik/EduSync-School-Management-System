@@ -21,6 +21,7 @@ $allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];
 <html>
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
 </head>
 
 <body class="bg-gray-100">
@@ -40,7 +41,7 @@ $allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];
 
             <?php
             if (in_array($page, $allowedPages)) {
-                include $page . ".php";
+                include './admin/admin-'.$page . ".php";
             } else {
                 echo "<h1>Page not found</h1>";
             }

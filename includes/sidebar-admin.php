@@ -6,7 +6,7 @@
             👤 Users
         </a>
 
-        <a href="dashboard-admin.php?page=enrollments" class="block px-4 py-3 rounded-lg hover:bg-blue-800">
+        <a href="dashboard-admin.php?page=classes" class="block px-4 py-3 rounded-lg hover:bg-blue-800">
             📝 classes
         </a>
 

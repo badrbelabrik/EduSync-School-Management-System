@@ -9,8 +9,6 @@ if($_SESSION['role'] != 1){
     exit();
 }
 
-include("includes/connection.php");
-include("admin/functions.php");
 $users = getUsers($conn);
 $classes = getClasses($conn);
 $courses = getCourses($conn);
