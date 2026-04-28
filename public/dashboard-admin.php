@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+define('BASE_URL', '/School-Management-System/public/');
 if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
     exit();
@@ -24,6 +24,7 @@ $courses = getCourses($conn);
     <meta charset="UTF-8">
     <title>EduSync Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body class="bg-gray-100">
@@ -64,7 +65,7 @@ $courses = getCourses($conn);
             <header class="bg-blue-900 text-white px-8 py-5 flex justify-end items-center">
                 <div class="flex items-center gap-4">
                     <span>
-                        <?php echo htmlspecialchars($_SESSION['firstname'] ?? 'User'); ?>
+                        <?php echo htmlspecialchars($_SESSION['firstname'].' '.$_SESSION['lastname'] ?? 'User'); ?>
                     </span>
 
                     <a href="../scripts/logout.php" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
@@ -77,7 +78,7 @@ $courses = getCourses($conn);
             <section class="p-10">
 
                 <h2 class="text-4xl font-bold text-gray-900 mb-8">
-                    Gestion des étudiants
+                    Welcome to the dashboard !!!
                 </h2>
 
                 <!-- Stats Cards -->
@@ -109,9 +110,9 @@ $courses = getCourses($conn);
                             class="bg-transparent outline-none placeholder-gray-300 w-full">
                     </div>
 
-                    <a href="#" class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
-                        + Ajouter un étudiant
-                    </a>
+                    <button onclick="openModal()" class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
+                        + Add user
+                    </button>
                 </div>
 
                 <!-- Table -->
@@ -136,16 +137,16 @@ $courses = getCourses($conn);
                                     <td class="p-5"><?php if($user['id_role'] == 1){
                                         echo "<p class='text-red-500'>Admin</p>";
                                     } else if($user['id_role'] == 2){
-                                        echo "Teacher";
+                                        echo "<p class='text-green-500'>Teacher</p>";
                                     } else if($user['id_role'] == 3){
                                         echo "Student";
                                     } ?></td>
                                     <td class="p-5 space-x-3">
-                                        <a href="#">Edit</a>
+                                        <a href="#"><i class="fa-regular fa-pen-to-square"></i></a>
 
                                         <form action="../scripts/deleteUser.php" method="POST" class="inline">
                                             <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                            <button type="submit" name="delete-user">Delete</button>
+                                            <button type="submit" name="delete-user"><i class="fa-solid fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -159,7 +160,9 @@ $courses = getCourses($conn);
         </main>
 
     </div>
-
+<?php
+include('./admin/addmodal.php')
+?>
 </body>
-
+<script src="./assets/js/script.js"></script>
 </html>

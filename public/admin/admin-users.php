@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+define('BASE_URL', '/School-Management-System/public/');
 if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
     exit();
@@ -38,12 +38,12 @@ $courses = getCourses($conn);
                 <a href="dashboard-admin.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
                     Dashboard
                 </a>
-
-                <a href="admin-users.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
+                
+                <a href="admin-users.php" class="block bg-blue-500 px-4 py-3 rounded-lg font-medium">
                     Users
                 </a>
 
-                <a href="admin-courses.php" class="block px-4 py-3 rounded-lg bg-blue-500 transition">
+                <a href="admin-courses.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
                     Courses
                 </a>
 

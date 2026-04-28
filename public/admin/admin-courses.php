@@ -1,11 +1,11 @@
 <?php
 session_start();
-
+define('BASE_URL', '/School-Management-System/public/');
 if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
     exit();
 }
-if ($_SESSION['role'] != 1) {
+if($_SESSION['role'] != 1){
     echo "unauthorized access";
     exit();
 }
@@ -43,7 +43,7 @@ $courses = getCourses($conn);
                     Users
                 </a>
 
-                <a href="admin-courses.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
+                <a href="admin-courses.php" class="block px-4 py-3 rounded-lg bg-blue-500 transition">
                     Courses
                 </a>
 
@@ -51,7 +51,7 @@ $courses = getCourses($conn);
                     Classes
                 </a>
 
-                <a href="admin-enrollments.php" class="block px-4 py-3 rounded-lg bg-blue-500 transition">
+                <a href="admin-enrollments.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
                     Enrollments
                 </a>
             </nav>
