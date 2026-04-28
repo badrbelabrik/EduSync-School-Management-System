@@ -1,5 +1,4 @@
 <?php
-session_start();
 define('BASE_URL', '/School-Management-System/public/');
 if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
@@ -10,70 +9,15 @@ if($_SESSION['role'] != 1){
     exit();
 }
 
-include("../includes/connection.php");
-include("../admin/functions.php");
+include("includes/connection.php");
+include("admin/functions.php");
 $users = getUsers($conn);
 $classes = getClasses($conn);
 $courses = getCourses($conn);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>EduSync Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
 
-<body class="bg-gray-100">
-
-    <div class="min-h-screen flex">
-
-        <!-- Sidebar -->
-        <aside class="w-64 bg-blue-900 text-white p-6">
-            <h1 class="text-2xl font-bold mb-10">EduSync</h1>
-
-            <nav class="space-y-4">
-                <a href="dashboard-admin.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
-                    Dashboard
-                </a>
-
-                <a href="admin-users.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
-                    Users
-                </a>
-
-                <a href="admin-courses.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
-                    Courses
-                </a>
-
-                <a href="admin-classes.php" class="block px-4 py-3 rounded-lg bg-blue-500 transition">
-                    Classes
-                </a>
-
-                <a href="admin-enrollments.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
-                    Enrollments
-                </a>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1">
-
-            <!-- Topbar -->
-            <header class="bg-blue-900 text-white px-8 py-5 flex justify-end items-center">
-                <div class="flex items-center gap-4">
-                    <span>
-                        <?php echo htmlspecialchars($_SESSION['firstname'] ?? 'User'); ?>
-                    </span>
-
-                    <a href="../scripts/logout.php" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
-                        Log out
-                    </a>
-                </div>
-            </header>
-
-            <!-- Content -->
             <section class="p-10">
 
                 <h2 class="text-4xl font-bold text-gray-900 mb-8">
@@ -155,11 +99,3 @@ $courses = getCourses($conn);
                 </div>
 
             </section>
-
-        </main>
-
-    </div>
-
-</body>
-
-</html>

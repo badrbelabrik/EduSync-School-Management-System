@@ -1,168 +1,56 @@
 <?php
 session_start();
-define('BASE_URL', '/School-Management-System/public/');
 if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
     exit();
 }
-// if($_SESSION['role'] != 1){
-//     echo "unauthorized access";
-//     exit();
-// }
+if($_SESSION['role'] != 1){
+    echo "unauthorized access";
+    exit();
+}
 
 include("../includes/connection.php");
 include("../admin/functions.php");
-$users = getUsers($conn);
-$classes = getClasses($conn);
-$courses = getCourses($conn);
+
+$page = $_GET['page'] ?? 'users';
+
+$allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>EduSync Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body class="bg-gray-100">
 
-    <div class="min-h-screen flex">
+<div class="flex min-h-screen">
 
-        <!-- Sidebar -->
-        <aside class="w-64 bg-blue-900 text-white p-6">
-            <h1 class="text-2xl font-bold mb-10">EduSync</h1>
+    <!-- Sidebar -->
+    <?php include("../includes/sidebar-admin.php"); ?>
 
-            <nav class="space-y-4">
-                <a href="dashboard-admin.php" class="block bg-blue-500 px-4 py-3 rounded-lg font-medium">
-                    Dashboard
-                </a>
+    <div class="flex-1">
 
-                <a href="admin-users.php" class="block hover:bg-blue-800 px-4 py-3 rounded-lg font-medium">
-                    Users
-                </a>
+        <!-- Header -->
+        <?php include("../includes/header-admin.php"); ?>
 
-                <a href="admin-courses.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
-                    Courses
-                </a>
+        <!-- Dynamic Content -->
+        <main class="p-10">
 
-                <a href="admin-classes.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
-                    Classes
-                </a>
-
-                <a href="admin-enrollments.php" class="block px-4 py-3 rounded-lg hover:bg-blue-800 transition">
-                    Enrollments
-                </a>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1">
-
-            <!-- Topbar -->
-            <header class="bg-blue-900 text-white px-8 py-5 flex justify-end items-center">
-                <div class="flex items-center gap-4">
-                    <span>
-                        <?php echo htmlspecialchars($_SESSION['firstname'].' '.$_SESSION['lastname'] ?? 'User'); ?>
-                    </span>
-
-                    <a href="../scripts/logout.php" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
-                        Log out
-                    </a>
-                </div>
-            </header>
-
-            <!-- Content -->
-            <section class="p-10">
-
-                <h2 class="text-4xl font-bold text-gray-900 mb-8">
-                    Welcome to the dashboard !!!
-                </h2>
-
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-
-                    <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Total students</h3>
-                        <p class="text-4xl font-bold"><?php echo count($users)?></p>
-                    </div>
-
-                    <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Total classes</h3>
-                        <p class="text-4xl font-bold"><?php echo count($classes)?></p>
-                    </div>
-
-                    <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Total courses</h3>
-                        <p class="text-4xl font-bold"><?php echo count($courses)?></p>
-                    </div>
-
-                </div>
-
-                <!-- Search + Button -->
-                <div class="flex justify-between items-center mb-6">
-                    <div class="bg-blue-950 text-white rounded-lg px-5 py-4 w-72">
-                        <input
-                            type="text"
-                            placeholder="Rechercher"
-                            class="bg-transparent outline-none placeholder-gray-300 w-full">
-                    </div>
-
-                    <button onclick="openModal()" class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
-                        + Add user
-                    </button>
-                </div>
-
-                <!-- Table -->
-                <div class="bg-blue-900 rounded-xl overflow-hidden shadow">
-                    <table class="w-full text-white">
-                        <thead class="bg-blue-950">
-                            <tr>
-                                <th class="text-left p-5">First name</th>
-                                <th class="text-left p-5">Last name</th>
-                                <th class="text-left p-5">Email</th>
-                                <th class="text-left p-5">Role</th>
-                                <th class="text-left p-5">Actions</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php foreach ($users as $user): ?>
-                                <tr class="border-t border-blue-800">
-                                    <td class="p-5"><?php echo $user['firstname']; ?></td>
-                                    <td class="p-5"><?php echo $user['lastname']; ?></td>
-                                    <td class="p-5"><?php echo $user['email']; ?></td>
-                                    <td class="p-5"><?php if($user['id_role'] == 1){
-                                        echo "<p class='text-red-500'>Admin</p>";
-                                    } else if($user['id_role'] == 2){
-                                        echo "<p class='text-green-500'>Teacher</p>";
-                                    } else if($user['id_role'] == 3){
-                                        echo "Student";
-                                    } ?></td>
-                                    <td class="p-5 space-x-3">
-                                        <a href="#"><i class="fa-regular fa-pen-to-square"></i></a>
-
-                                        <form action="../scripts/deleteUser.php" method="POST" class="inline">
-                                            <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                            <button type="submit" name="delete-user"><i class="fa-solid fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-
-            </section>
+            <?php
+            if (in_array($page, $allowedPages)) {
+                include $page . ".php";
+            } else {
+                echo "<h1>Page not found</h1>";
+            }
+            ?>
 
         </main>
 
     </div>
-<?php
-include('./admin/addmodal.php')
-?>
+
+</div>
+
 </body>
-<script src="./assets/js/script.js"></script>
 </html>

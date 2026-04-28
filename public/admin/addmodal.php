@@ -1,10 +1,3 @@
-<?php define('BASE_URL', '/School-Management-System/public/'); ?>
-<!-- Open Modal Button -->
-<button onclick="openModal()" 
-    class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
-    + Add user
-</button>
-
 <!-- Modal -->
 <div id="userModal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50">
 
