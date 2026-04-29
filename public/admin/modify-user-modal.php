@@ -1,12 +1,12 @@
 <!-- Modal -->
-<div id="userModal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50">
+<div id="modifyModal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50">
 
     <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6">
         
         <!-- Header -->
         <div class="flex justify-between items-center border-b pb-4 mb-6">
             <h2 class="text-2xl font-bold text-blue-900">
-                Ajouter un utilisateur
+                Modify user
             </h2>
 
             <button onclick="closeModal()" 
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Form -->
-        <form action="admin/functions.php" method="POST" class="space-y-4">
+        <form action="../scripts/authprocess.php" method="POST" class="space-y-4">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
@@ -58,7 +58,7 @@
                 <label class="block text-sm font-semibold text-blue-900 mb-1">
                     Role
                 </label>
-                <select name="role_id"
+                <select name="role"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
                     <option value="">Select role</option>
                     <option value="1">Admin</option>
@@ -86,13 +86,13 @@
 
 <script>
 function openModal() {
-    const modal = document.getElementById("userModal");
+    const modal = document.getElementById("modifyModal");
     modal.classList.remove("hidden");
     modal.classList.add("flex");
 }
 
 function closeModal() {
-    const modal = document.getElementById("userModal");
+    const modal = document.getElementById("modifyModal");
     modal.classList.add("hidden");
     modal.classList.remove("flex");
 }

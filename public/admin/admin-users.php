@@ -97,5 +97,6 @@ $courses = getCourses($conn);
             </tbody>
         </table>
     </div>
-    <?php include('./admin/addmodal.php')?>
+    <?php include('./admin/add-user-modal.php')?>
+    <?php include('./admin/modify-user-modal.php')?>
 </section>
