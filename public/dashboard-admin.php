@@ -20,24 +20,20 @@ $allowedPages = ['users', 'courses', 'enrollments', 'stats'];
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
-
+<body class="bg-[#f8fafc] font-sans antialiased">
 <div class="flex min-h-screen">
 
-    <!-- Sidebar -->
     <?php include("../includes/sidebar-admin.php"); ?>
 
     <div class="flex-1">
 
-        <!-- Header -->
         <?php include("../includes/header-admin.php"); ?>
 
-        <!-- Dynamic Content -->
         <main class="p-10">
 
             <?php
             if (in_array($page, $allowedPages)) {
-                include $page . ".php";
+                include "admin/admin-" .$page . ".php";
             } else {
                 echo "<h1>Page not found</h1>";
             }

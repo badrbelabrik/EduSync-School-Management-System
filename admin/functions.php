@@ -1,118 +1,44 @@
 <?php
-
-// =======================
-// 🔵 US17 - COURSES
-// =======================
-
-
-function getTeachers($conn) {
-    $sql = "SELECT  firstname, lastname 
+function getTeachers($conn)
+{
+    $sql = "SELECT id, firstname, lastname 
             FROM users 
             WHERE id_role = 2";
-    
+
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function addCourse($conn, $name, $description, $hours, $teacher_id) {
+function addCourse($conn, $title, $description, $total_hours, $id_prof)
+{
     $sql = "INSERT INTO courses(title, description, total_hours, id_prof)
-            VALUES(:name, :description, :hours, :teacher_id)";
-    
+            VALUES(:title, :description, :total_hours, :id_prof)";
+
     $stmt = $conn->prepare($sql);
 
     return $stmt->execute([
-        'name' => $name,
+        'title' => $title,
         'description' => $description,
-        'hours' => $hours,
-        'teacher_id' => $teacher_id
+        'total_hours' => $total_hours,
+        'id_prof' => $id_prof
     ]);
 }
 
-function getCoursesWithTeachers($conn) {
+function getCoursesWithTeachers($conn)
+{
     $sql = "SELECT 
-                courses.id,
-                courses.name,
-                courses.hours,
-                users.firstName,
-                users.lasttName
+                courses.title,
+                courses.total_hours,
+                users.firstname,
+                users.lastname
             FROM courses
-            JOIN users ON courses.teacher_id = users.id";
+            JOIN users ON courses.id_prof = users.id";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
-// 🟡 US18 - ENROLLMENTS
-
-function getStudents($conn) {
-    $sql = "SELECT id, firstName, lasttName 
-            FROM users 
-            WHERE id_role = 3";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// courses
-function getCourses($conn) {
-    $sql = "SELECT id, name FROM courses";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-//   register un etudiant dans un cours
-function enrollStudent($conn, $student_id, $course_id) {
-    $sql = "INSERT INTO enrollments(student_id, course_id)
-            VALUES(:student_id, :course_id)";
-
-    $stmt = $conn->prepare($sql);
-
-    return $stmt->execute([
-        'student_id' => $student_id,
-        'course_id' => $course_id
-    ]);
-}
-
-
-// 🔴 US19 - STATISTICS
-
-// nombre des etudiants 
-function countStudents($conn) {
-    $sql = "SELECT COUNT(*) as total FROM users WHERE id_role = 3";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetch()['total'];
-}
-
-// nombres courses
-function countCourses($conn) {
-    $sql = "SELECT COUNT(*) as total FROM courses";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetch()['total'];
-}
-
-// nombres d'etudiant pour chaque  class
-function studentsPerClass($conn) {
-    $sql = "SELECT class_id, COUNT(*) as total
-            FROM users
-            WHERE id_role = 3
-            GROUP BY class_id";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+?>
