@@ -1,8 +1,5 @@
 <?php
 
-// =======================
-// 🔵 US17 - COURSES
-// =======================
 
 
 function getTeachers($conn)
@@ -49,7 +46,7 @@ function getCoursesWithTeachers($conn)
 }
 
 
-// 🟡 US18 - ENROLLMENTS
+
 
 function getStudents($conn)
 {
@@ -115,11 +112,11 @@ $sql = "INSERT INTO enrollments(status, id_student, id_course)
 
     return "success";
 }
-    // 2️⃣ ila makaynch → insert
+   
     
 
 
-// 🔴 US19 - STATISTICS
+
 
 // nombre des etudiants 
 function countStudents($conn)
