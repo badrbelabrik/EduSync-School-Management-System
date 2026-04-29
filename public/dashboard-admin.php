@@ -8,7 +8,7 @@ if (!isset($_SESSION['userid']) || $_SESSION['role'] != 1) {
 
 include("../includes/connection.php");
 include("../admin/functions.php");
-
+include("../includes/functions.php");
 $page = $_GET['page'] ?? 'users';
 
 $allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];

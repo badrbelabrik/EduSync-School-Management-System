@@ -45,7 +45,12 @@ function getCoursesWithTeachers($conn)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getClasses($conn) {
+    $stmt = $conn->prepare("SELECT * FROM classes");
+    $stmt->execute();
 
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 function getStudents($conn)
@@ -63,7 +68,7 @@ function getStudents($conn)
 // courses
 function getCourses($conn)
 {
-    $sql = "SELECT id, title 
+    $sql = "SELECT * 
             FROM courses";
 
     $stmt = $conn->prepare($sql);
