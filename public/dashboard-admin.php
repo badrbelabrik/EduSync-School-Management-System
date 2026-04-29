@@ -11,13 +11,14 @@ include("../admin/functions.php");
 
 $page = $_GET['page'] ?? 'users';
 
-$allowedPages = ['users', 'courses', 'enrollments', 'stats'];
+$allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
 </head>
 
 <body class="bg-[#f8fafc] font-sans antialiased">
