@@ -105,6 +105,90 @@ $sql = "INSERT INTO enrollments(status, id_student, id_course)
 
     return "success";
 }
-    
+   // nombre des etudiants 
+function countStudents($conn)
+{
+    $sql = "SELECT COUNT(*) as total FROM users WHERE id_role = 3";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetch()['total'];
+}
+
+// nombres courses
+function countCourses($conn)
+{
+    $sql = "SELECT COUNT(*) as total FROM courses";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetch()['total'];
+}
+function countStudentsActive($conn)
+{
+    $sql = "SELECT COUNT(DISTINCT u.id) as total
+            FROM users u
+            JOIN enrollments e ON e.id_student = u.id
+            WHERE u.id_role = 3
+            AND e.status = 'Approuvée'";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetch()['total'];
+}
+// nombres d'etudiant pour chaque  class
+function studentsPerClass($conn)
+{
+    $sql = "SELECT class_id, COUNT(*) as total
+            FROM users
+            WHERE id_role = 3
+            GROUP BY class_id";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function countTeachers($conn)
+{
+    $sql = "SELECT COUNT(*) as total FROM users WHERE id_role = 2";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetch()['total'];
+}
+function coursesPerTeacher($conn)
+{
+    $sql = "SELECT 
+                u.firstname,
+                u.lastname,
+                COUNT(c.id) as total_courses
+            FROM users u
+            LEFT JOIN courses c ON c.id_prof = u.id
+            WHERE u.id_role = 2
+            GROUP BY u.id";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function studentsPerCourse($conn)
+{
+    $sql = "SELECT 
+                c.title,
+                COUNT(e.id_student) as total_students
+            FROM courses c
+            LEFT JOIN enrollments e ON e.id_course = c.id
+            GROUP BY c.id";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+ 
 
 ?>
