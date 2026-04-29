@@ -1,8 +1,5 @@
 <?php
-require_once("../includes/connection.php");
-session_start();
-require_once("../includes/functions.php");
-if (!isset($_SESSION['userid'])) {
+if (isset($_SESSION['userid'])) {
             if($_SESSION["role"] == 1){
             header("location: ../public/dashboard-admin.php");
             exit();
@@ -14,6 +11,9 @@ if (!isset($_SESSION['userid'])) {
             exit();
         }
 }
+session_start();
+require_once("../includes/connection.php");
+require_once("../includes/functions.php");
 function sanitize($data) {
     return htmlspecialchars((trim($data)));
 }
@@ -105,10 +105,11 @@ if(isset($_POST['add-user'])){
 }
 
 if (isset($_POST['update-user'])) {
-        $firstname = sanitize($_POST['firstname'] ?? '');
+    $firstname = sanitize($_POST['firstname'] ?? '');
     $lastname = sanitize($_POST['lastname'] ?? '');
     $email = sanitize($_POST['email'] ?? '');
     $role = $_POST['role'] ?? '';
+    $id = $_POST['user_id'];
 
     if (empty($firstname) || empty($lastname) || empty($email) || empty($role)) {
         header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=emptyfield');
@@ -127,6 +128,14 @@ if (isset($_POST['update-user'])) {
         header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=invalidemail');
         exit();
     }
-    updateUser($conn,$firstname,$lastname,$email,$role);
+    updateUser($conn,$firstname,$lastname,$email,$role,$id);
+}
+
+if(isset($_POST['delete-user'])){
+    $userid = $_POST['user_id'];
+    if ($userid == $_SESSION['userid']) {
+    die("You cannot delete your own account");
+    }
+    deleteUser($conn,$userid);
 }
 ?>

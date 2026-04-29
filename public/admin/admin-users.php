@@ -95,9 +95,9 @@ $courses = getCourses($conn);
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
 
-                            <form action="../scripts/deleteUser.php" method="POST" class="inline">
+                            <form action="../scripts/authprocess.php" method="POST" class="inline">
                                 <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                                <button type="submit" name="delete-user"><i class="fa-solid fa-trash"></i></button>
+                                <button type="submit" name="delete-user" onclick="return confirm('Are you sure you want to delete this user?')"><i class="fa-solid fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>

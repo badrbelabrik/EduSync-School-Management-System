@@ -177,13 +177,7 @@ function getStudents($conn) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function updateUser($conn){
-        $id = $_POST['user_id'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $email = $_POST['email'];
-    $role = $_POST['role'];
-
+function updateUser($conn,$firstname,$lastname,$email,$role,$id){
     $stmt = $conn->prepare("
         UPDATE users 
         SET firstname = :firstname,
@@ -201,6 +195,14 @@ function updateUser($conn){
         ':id' => $id
     ]);
 
+    header("Location: ../public/dashboard-admin.php?page=users");
+    exit();
+}
+
+function deleteUser($conn,$userid){
+    $stmt = $conn->prepare("delete from users where id = :id");
+
+    $stmt->execute([':id' => $userid]);
     header("Location: ../public/dashboard-admin.php?page=users");
     exit();
 }
