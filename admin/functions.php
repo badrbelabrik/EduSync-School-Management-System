@@ -1,4 +1,10 @@
 <?php
+
+// =======================
+// 🔵 US17 - COURSES
+// =======================
+
+
 function getTeachers($conn)
 {
     $sql = "SELECT id, firstname, lastname 
@@ -41,6 +47,10 @@ function getCoursesWithTeachers($conn)
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+// 🟡 US18 - ENROLLMENTS
+
 function getStudents($conn)
 {
     $sql = "SELECT id, firstname, lastname 
@@ -105,7 +115,13 @@ $sql = "INSERT INTO enrollments(status, id_student, id_course)
 
     return "success";
 }
-   // nombre des etudiants 
+    // 2️⃣ ila makaynch → insert
+    
+
+
+// 🔴 US19 - STATISTICS
+
+// nombre des etudiants 
 function countStudents($conn)
 {
     $sql = "SELECT COUNT(*) as total FROM users WHERE id_role = 3";
@@ -189,6 +205,3 @@ function studentsPerCourse($conn)
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
- 
-
-?>
