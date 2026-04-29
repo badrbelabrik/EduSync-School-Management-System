@@ -138,4 +138,22 @@ if(isset($_POST['delete-user'])){
     }
     deleteUser($conn,$userid);
 }
+
+if(isset($_POST['add-class'])){
+    $classname = sanitize($_POST['classname'] ?? '');
+    $classroom_number = sanitize($_POST['classroom_number'] ?? '');
+
+
+    if (empty($classname) || empty($classroom_number)) {
+        header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=emptyfield');
+        exit;
+    }
+        if(!preg_match("/^[a-zA-Z0-9]*$/",$classname)){
+        header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=invalidclassname');
+        exit();
+    }
+        createClass($conn,$classname,$classroom_number);
+        header("Location: ../public/dashboard-admin.php?page=users");
+        exit();
+}
 ?>

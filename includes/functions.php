@@ -206,3 +206,23 @@ function deleteUser($conn,$userid){
     header("Location: ../public/dashboard-admin.php?page=users");
     exit();
 }
+
+function createClass($conn,$classname,$classroom){
+        $query = "INSERT INTO classes (name, classroom_number)
+              VALUES (:name, :classroom_number)";
+
+    $stmt = $conn->prepare($query);
+
+    try {
+        $stmt->execute([
+            ':name' => $classname,
+            ':classroom_number'  => $classroom
+        ]);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+
+    } catch (PDOException $e) {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
+}

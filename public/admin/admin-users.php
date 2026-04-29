@@ -10,8 +10,6 @@ if ($_SESSION['role'] != 1) {
 }
 
 $users = getUsers($conn);
-$classes = getClasses($conn);
-$courses = getCourses($conn);
 ?>
 
 
@@ -23,25 +21,6 @@ $courses = getCourses($conn);
         Gestion des étudiants
     </h2>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-
-        <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-            <h3 class="text-3xl font-bold mb-4">Total Étudiants</h3>
-            <p class="text-4xl font-bold">20</p>
-        </div>
-
-        <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-            <h3 class="text-3xl font-bold mb-4">Étudiants Actifs</h3>
-            <p class="text-4xl font-bold">16</p>
-        </div>
-
-        <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-            <h3 class="text-3xl font-bold mb-4">Étudiants Inactifs</h3>
-            <p class="text-4xl font-bold">4</p>
-        </div>
-
-    </div>
 
     <!-- Search + Button -->
     <div class="flex justify-between items-center mb-6">
