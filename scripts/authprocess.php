@@ -97,10 +97,36 @@ if(isset($_POST['add-user'])){
     if(userExists($conn,$email) !== false){
         header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=useralreadyexist');
         exit();
-    } else{
+    }
         createUser($conn,$firstname,$lastname,$email,$password,$role);
-        header('Location: ' . $_SERVER['HTTP_REFERER'].'?message=useraddedsuccesfully');
+        header("Location: ../public/dashboard-admin.php?page=users");
+        exit();
+
+}
+
+if (isset($_POST['update-user'])) {
+        $firstname = sanitize($_POST['firstname'] ?? '');
+    $lastname = sanitize($_POST['lastname'] ?? '');
+    $email = sanitize($_POST['email'] ?? '');
+    $role = $_POST['role'] ?? '';
+
+    if (empty($firstname) || empty($lastname) || empty($email) || empty($role)) {
+        header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=emptyfield');
+        exit;
+    }
+        if(invalidFirstname($firstname)){
+        header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=invalidfirstname');
         exit();
     }
+    if(invalidLastname($lastname)){
+        header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=invalidlastname');
+        exit();
+    }
+
+    if(invalidEmail($email)){
+        header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=invalidemail');
+        exit();
+    }
+    updateUser($conn,$firstname,$lastname,$email,$role);
 }
 ?>

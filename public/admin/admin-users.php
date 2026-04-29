@@ -52,9 +52,9 @@ $courses = getCourses($conn);
                 class="bg-transparent outline-none placeholder-gray-300 w-full">
         </div>
 
-        <button onclick="openModal()" class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
+        <button onclick="openAddModal()" class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
             + Add a user
-</button>
+        </button>
     </div>
 
     <!-- Table -->
@@ -76,16 +76,24 @@ $courses = getCourses($conn);
                         <td class="p-5"><?php echo $user['firstname']; ?></td>
                         <td class="p-5"><?php echo $user['lastname']; ?></td>
                         <td class="p-5"><?php echo $user['email']; ?></td>
-                        <td class="p-5"><?php if($user['id_role'] == 1){
-                            echo "<span class='text-red-500'>Admin</span>";
-                        } else if($user['id_role'] == 2){
-                            echo "<span class='text-green-500'>Teacher</span>";
-                        } else{
-                            echo "<span class='text-blue-500'>Student</span>";
-                        } ; ?></td>
+                        <td class="p-5"><?php if ($user['id_role'] == 1) {
+                                            echo "<span class='text-red-500'>Admin</span>";
+                                        } else if ($user['id_role'] == 2) {
+                                            echo "<span class='text-green-500'>Teacher</span>";
+                                        } else {
+                                            echo "<span class='text-blue-500'>Student</span>";
+                                        }; ?></td>
 
                         <td class="p-5 space-x-3">
-                            <a href="#"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <button onclick="openEditModal(
+                                    <?php echo $user['id']; ?>,
+                                    '<?php echo $user['firstname']; ?>',
+                                    '<?php echo $user['lastname']; ?>',
+                                    '<?php echo $user['email']; ?>',
+                                    <?php echo $user['id_role']; ?>
+                                )">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
 
                             <form action="../scripts/deleteUser.php" method="POST" class="inline">
                                 <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
@@ -97,6 +105,6 @@ $courses = getCourses($conn);
             </tbody>
         </table>
     </div>
-    <?php include('./admin/add-user-modal.php')?>
-    <?php include('./admin/modify-user-modal.php')?>
+    <?php include('./admin/add-user-modal.php') ?>
+    <?php include('./admin/modify-user-modal.php') ?>
 </section>

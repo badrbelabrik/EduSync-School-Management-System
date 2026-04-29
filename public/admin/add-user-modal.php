@@ -9,7 +9,7 @@
                 Ajouter un utilisateur
             </h2>
 
-            <button onclick="closeModal()" 
+            <button onclick="closeAddModal()" 
                 class="text-gray-500 hover:text-red-500 text-2xl font-bold">
                 &times;
             </button>
@@ -69,7 +69,7 @@
 
             <!-- Actions -->
             <div class="flex justify-end gap-3 pt-4 border-t">
-                <button type="button" onclick="closeModal()"
+                <button type="button" onclick="closeAddModal()"
                     class="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">
                     Cancel
                 </button>
@@ -85,13 +85,13 @@
 </div>
 
 <script>
-function openModal() {
+function openAddModal() {
     const modal = document.getElementById("userModal");
     modal.classList.remove("hidden");
     modal.classList.add("flex");
 }
 
-function closeModal() {
+function closeAddModal() {
     const modal = document.getElementById("userModal");
     modal.classList.add("hidden");
     modal.classList.remove("flex");

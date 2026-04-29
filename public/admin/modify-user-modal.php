@@ -19,12 +19,12 @@
         <form action="../scripts/authprocess.php" method="POST" class="space-y-4">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                
+                <input type="hidden" name="user_id" id="edit_user_id">
                 <div>
                     <label class="block text-sm font-semibold text-blue-900 mb-1">
                         First name
                     </label>
-                    <input type="text" name="firstname"
+                    <input type="text" id="edit_firstname" name="firstname"
                         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
                 </div>
 
@@ -32,7 +32,7 @@
                     <label class="block text-sm font-semibold text-blue-900 mb-1">
                         Last name
                     </label>
-                    <input type="text" name="lastname"
+                    <input type="text" id="edit_lastname" name="lastname"
                         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
                 </div>
 
@@ -42,7 +42,7 @@
                 <label class="block text-sm font-semibold text-blue-900 mb-1">
                     Email
                 </label>
-                <input type="email" name="email"
+                <input type="email" id="edit_email" name="email"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
             </div>
 
@@ -58,7 +58,7 @@
                 <label class="block text-sm font-semibold text-blue-900 mb-1">
                     Role
                 </label>
-                <select name="role"
+                <select name="role" id="edit_role"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
                     <option value="">Select role</option>
                     <option value="1">Admin</option>
@@ -74,9 +74,9 @@
                     Cancel
                 </button>
 
-                <button type="submit" name="add-user"
+                <button type="submit" name="update-user"
                     class="px-5 py-2 rounded-lg bg-blue-900 text-white hover:bg-blue-800">
-                    Add user
+                    Update user
                 </button>
             </div>
 
@@ -85,15 +85,19 @@
 </div>
 
 <script>
-function openModal() {
-    const modal = document.getElementById("modifyModal");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
+function openEditModal(id, firstname, lastname, email, role) {
+    document.getElementById("modifyModal").classList.remove("hidden");
+    document.getElementById("modifyModal").classList.add("flex");
+
+    document.getElementById("edit_user_id").value = id;
+    document.getElementById("edit_firstname").value = firstname;
+    document.getElementById("edit_lastname").value = lastname;
+    document.getElementById("edit_email").value = email;
+    document.getElementById("edit_role").value = role;
 }
 
 function closeModal() {
-    const modal = document.getElementById("modifyModal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+    document.getElementById("modifyModal").classList.add("hidden");
+    document.getElementById("modifyModal").classList.remove("flex");
 }
 </script>
