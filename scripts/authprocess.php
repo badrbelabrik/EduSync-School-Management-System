@@ -57,9 +57,10 @@ if(isset($_POST['login'])){
     }
 
     loginUser($conn,$email,$password);
-} else{
-    header("location: ../public/login.php");
+} 
+
+if (!isset($_SESSION['userid'])) {
+    header("Location: ../public/login.php");
     exit();
 }
-
 ?>

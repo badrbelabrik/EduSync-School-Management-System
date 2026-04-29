@@ -5,15 +5,22 @@ if (!isset($_SESSION['userid'])) {
     header("Location: login.php");
     exit();
 }
-if($_SESSION['role'] != 2){
+
+if ($_SESSION['role'] != 2) {
     echo "unauthorized access";
     exit();
 }
 
 include("../includes/connection.php");
 include("../includes/functions.php");
-$students = getStudents($conn);
+include("../prof/functions.php");
+$profcourses=getProfcourses($conn);
+$studentbyprof=getstundentsbyprof($conn);
+
+
+
 ?>
+ 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,76 +75,56 @@ $students = getStudents($conn);
             </header>
 
             <!-- Content -->
-            <section class="p-10">
+<table border="1">
+<tr>
+<th>Nom étudiant</th>
+<th>Cours</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
 
-                <h2 class="text-4xl font-bold text-gray-900 mb-8">
-                    Gestion des étudiants
-                </h2>
+<?php foreach($studentbyprof as $etu): ?>
+    
+<tr>
+<td><?= $etu['nom_etu']; ?></td>
+<td><?= $etu['nom_cours']; ?></td>
+<td><?= $etu['cour_des']; ?></td>
+<td><?= $etu['status']; ?></td>
+</tr>
+<?php endforeach; ?>
 
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+</table>
 
-                    <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Total Étudiants</h3>
-                        <p class="text-4xl font-bold">20</p>
-                    </div>
-
-                    <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Étudiants Actifs</h3>
-                        <p class="text-4xl font-bold">16</p>
-                    </div>
-
-                    <div class="bg-blue-900 text-white rounded-lg p-8 shadow">
-                        <h3 class="text-3xl font-bold mb-4">Étudiants Inactifs</h3>
-                        <p class="text-4xl font-bold">4</p>
-                    </div>
-
-                </div>
-
-                <!-- Search + Button -->
-                <div class="flex justify-between items-center mb-6">
-                    <div class="bg-blue-950 text-white rounded-lg px-5 py-4 w-72">
-                        <input
-                            type="text"
-                            placeholder="Rechercher"
-                            class="bg-transparent outline-none placeholder-gray-300 w-full">
-                    </div>
-
-                    <a href="#" class="bg-blue-950 text-white px-6 py-4 rounded-lg hover:bg-blue-800 transition">
-                        + Ajouter un étudiant
-                    </a>
-                </div>
+</table>
+        
 
                 <!-- Table -->
-                <div class="bg-blue-900 rounded-xl overflow-hidden shadow">
+                <div class="bg-blue-900 rounded-xl overflow-hidden shadow mt-[30px]">
                     <table class="w-full text-white">
-                        <thead class="bg-blue-950">
-                            <tr>
-                                <th class="text-left p-5">Nom</th>
-                                <th class="text-left p-5">Prénom</th>
-                                <th class="text-left p-5">Email</th>
-                                <th class="text-left p-5">Group</th>
-                                <th class="text-left p-5">Statut</th>
-                                <th class="text-left p-5">Actions</th>
-                            </tr>
-                        </thead>
+<thead class="bg-blue-950">
+<tr>
+<th class="text-left p-5">Course Name</th>
+<th class="text-left p-5">Description</th>
+<th class="text-left p-5">total hour</th>
+<th class="text-left p-5">Actions</th>
+</tr>
+</thead>
 
-                        <tbody>
-                        <tr class="border-t border-blue-800">
-                            <td class="p-5">Johnson</td>
-                            <td class="p-5">Emily</td>
-                            <td class="p-5">emily@gmail.com</td>
-                            <td class="p-5">Group 1</td>
-                            <td class="p-5">
-                                <span class="bg-green-500 px-4 py-1 rounded-full">Active</span>
-                            </td>
-                            <td class="p-5 space-x-3">
-                                <a href="#">View</a>
-                                <a href="#">Edit</a>
-                                <a href="#">Delete</a>
-                            </td>
-                        </tr>
-                        </tbody>
+                      <tbody>
+<?php foreach($profcourses as $course): ?>
+<tr class="border-t border-blue-800">
+    <td class="p-5"><?php echo  $course['title']; ?></td>
+    <td class="p-5"><?php echo  $course['description']; ?></td>
+    <td class="p-5"><?php echo $course['total_hours']; ?></td>
+
+    <td class="p-5 space-x-3">
+        <a>View</a>
+        <a>Edit</a>
+        <a>Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</tbody>
                     </table>
                 </div>
 
