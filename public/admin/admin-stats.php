@@ -2,20 +2,17 @@
 require_once(__DIR__ . "/../../includes/connection.php");
 require_once(__DIR__ . "/../../admin/functions.php");
 
-// 🔢 Cards
 $totalStudents = countStudents($conn);
 $totalCourses = countCourses($conn);
 $totalStudentActive = countStudentsActive($conn);
 $totalTeachers = countTeachers($conn);
 
-// 📊 Tables
 $teachersCourses = coursesPerTeacher($conn);
 $coursesStats = studentsPerCourse($conn);
 ?>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <!-- Total Students -->
     <div class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-2xl shadow-lg shadow-blue-200 transition-transform hover:scale-[1.02]">
         <div class="relative z-10">
             <h2 class="text-blue-100 text-sm font-semibold uppercase tracking-wider">Total Students</h2>
@@ -23,7 +20,6 @@ $coursesStats = studentsPerCourse($conn);
         </div>
     </div>
 
-    <!-- Total Courses -->
     <div class="relative overflow-hidden bg-gradient-to-br from-green-600 to-green-700 p-6 rounded-2xl shadow-lg shadow-green-200 transition-transform hover:scale-[1.02]">
         <div class="relative z-10">
             <h2 class="text-green-100 text-sm font-semibold uppercase tracking-wider">Total Courses</h2>
@@ -31,7 +27,6 @@ $coursesStats = studentsPerCourse($conn);
         </div>
     </div>
 
-    <!-- Active Students -->
     <div class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-2xl shadow-lg shadow-blue-200 transition-transform hover:scale-[1.02]">
         <div class="relative z-10">
             <h2 class="text-blue-100 text-sm font-semibold uppercase tracking-wider">Total Students Active</h2>
@@ -39,7 +34,6 @@ $coursesStats = studentsPerCourse($conn);
         </div>
     </div>
 
-    <!-- Total Teachers -->
     <div class="relative overflow-hidden bg-gradient-to-br from-purple-600 to-purple-700 p-6 rounded-2xl shadow-lg shadow-purple-200 transition-transform hover:scale-[1.02]">
         <div class="relative z-10">
             <h2 class="text-purple-100 text-sm font-semibold uppercase tracking-wider">Total Teachers</h2>
@@ -49,7 +43,6 @@ $coursesStats = studentsPerCourse($conn);
 
 </div>
 
-<!-- 📊 Courses per Teacher -->
 <div class="bg-white mt-8 p-6 rounded-2xl shadow-sm border border-gray-100">
     <h2 class="text-xl font-bold text-gray-800 mb-4">Courses per Teacher</h2>
 
@@ -61,7 +54,6 @@ $coursesStats = studentsPerCourse($conn);
     <?php endforeach; ?>
 </div>
 
-<!-- 📊 Students per Course -->
 <div class="bg-white mt-8 p-6 rounded-2xl shadow-sm border border-gray-100">
     <h2 class="text-xl font-bold text-gray-800 mb-4">Students per Course</h2>
 
