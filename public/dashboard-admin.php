@@ -1,11 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['userid'])) {
-    header("Location: login.php");
-    exit();
-}
-if($_SESSION['role'] != 1){
-    echo "unauthorized access";
+
+if (!isset($_SESSION['userid']) || $_SESSION['role'] != 1) {
+    header("Location: ../login.php");
     exit();
 }
 
@@ -24,24 +21,20 @@ $allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
 </head>
 
-<body class="bg-gray-100">
-
+<body class="bg-[#f8fafc] font-sans antialiased">
 <div class="flex min-h-screen">
 
-    <!-- Sidebar -->
     <?php include("../includes/sidebar-admin.php"); ?>
 
     <div class="flex-1">
 
-        <!-- Header -->
         <?php include("../includes/header-admin.php"); ?>
 
-        <!-- Dynamic Content -->
         <main class="p-10">
 
             <?php
             if (in_array($page, $allowedPages)) {
-                include './admin/admin-'.$page . ".php";
+                include "admin/admin-" .$page . ".php";
             } else {
                 echo "<h1>Page not found</h1>";
             }

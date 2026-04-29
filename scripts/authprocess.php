@@ -66,7 +66,6 @@ if(isset($_POST['login'])){
         header("location: ../public/login.php?error=emptyinput");
         exit();
     }
-
     loginUser($conn,$email,$password);
 } 
 
