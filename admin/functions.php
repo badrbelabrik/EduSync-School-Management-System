@@ -126,12 +126,13 @@ function enrollStudent($conn, $status, $student_id, $course_id)
     if ($exists) {
         return "exists"; // already enrolled
     }
-$sql = "INSERT INTO enrollments(status, id_student, id_course)
-            VALUES(:status, :id_student, :id_course)";
+$sql = "INSERT INTO enrollments(enrolled_at,status, id_student, id_course)
+            VALUES(:date,:status, :id_student, :id_course)";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->execute([
+        'date' => date("Y-m-d"),
         'status' => $status,
         'id_student' => $student_id,
         'id_course' => $course_id
