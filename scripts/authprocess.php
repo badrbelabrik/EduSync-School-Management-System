@@ -55,6 +55,7 @@ if(isset($_POST['registration'])){
     } else{
         createUser($conn,$firstname,$lastname,$email,$password,3);
         exit();
+        
     }
 }
 
@@ -97,10 +98,18 @@ if(isset($_POST['add-user'])){
         header('Location: ' . $_SERVER['HTTP_REFERER'].'?error=useralreadyexist');
         exit();
     }
-        createUser($conn,$firstname,$lastname,$email,$password,$role);
-        header("Location: ../public/dashboard-admin.php?page=users");
-        exit();
+        createUserAdmin($conn,$firstname,$lastname,$email,$password,$role);
 
+        $user_id = $conn->lastInsertId();
+
+        if($_POST['role'] == 3){
+        $dateofbirth = $_POST['dateofbirth'] ?? '';
+        $student_number = $_POST['student_number'] ?? '';
+        $id_classe = $_POST['id_classe'] ?? '';
+        addStudent($conn,$dateofbirth,$student_number,$id_classe,$user_id);
+        }
+        
+        header("Location: ../public/dashboard-admin.php?page=users");
 }
 
 if (isset($_POST['update-user'])) {
