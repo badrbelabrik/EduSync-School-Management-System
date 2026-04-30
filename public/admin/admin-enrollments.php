@@ -25,17 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student = $_POST['student_id'];
-    $course = $_POST['course_id'];
-    $status = $_POST['status'];
 
-    if (!empty($student) && !empty($course) && !empty($status)) {
-        enrollStudent($conn, $status, $student, $course);
-        header("Location: dashboard-admin.php?page=enrollments");
-        exit();
-    }
-}
 ?>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -61,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <select name="student_id" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white">
                       <option value="">Choose Student</option>
                       <?php foreach ($students as $s): ?>
-                        <option value="<?= $s['id']; ?>"><?= $s['firstname'] . ' ' . $s['lastname']; ?></option>
+                        <option value="<?= $s['studentId']; ?>"><?= $s['firstname'] . ' ' . $s['lastname']; ?></option>
                       <?php endforeach; ?>
                     </select>
                 </div>
@@ -107,15 +97,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <tr class="hover:bg-gray-50 transition-colors text-gray-600">
                         <td class="px-6 py-4"><?= date('M d, Y', strtotime($e['enrolled_at'])); ?></td>
                         <td class="px-6 py-4">
-                            <?php if($e['status'] == 'active'): ?>
+                            <?php if($e['status'] == 'En cours'): ?>
                                 <span class="bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-tight">En cours</span>
                             <?php else: ?>
                                 <span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-tight">Approuvée</span>
                             <?php endif; ?>
                         </td>
                         <td class="px-6 py-4 text-center">
-                             <span class="bg-gray-100 px-2 py-1 rounded text-xs">S: <?= $e['id_student'] ?></span>
-                             <span class="bg-gray-100 px-2 py-1 rounded text-xs ml-1">C: <?= $e['id_course'] ?></span>
+                             <span class="bg-gray-100 px-2 py-1 rounded text-xs"><?= $e['student'] ?></span>
+                             <span class="bg-gray-100 px-2 py-1 rounded text-xs ml-1"><?= $e['course'] ?></span>
                         </td>
                     </tr>
                     <?php endforeach; ?>

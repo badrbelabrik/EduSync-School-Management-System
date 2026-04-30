@@ -1,8 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../includes/connection.php");
 require_once(__DIR__ . "/../../admin/functions.php");
-$teachers = getTeachers($conn);
-$courses = getCoursesWithTeachers($conn);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
@@ -11,11 +10,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $teacher = $_POST['id_prof'];
 
     if (!empty($title) && !empty($hours) && !empty($teacher)) {
-        addCourse($conn, $title, $description, $hours, $teacher);
-        header("Location: dashboard-admin.php?page=courses");
-        exit();
-    }
+$result = addCourse($conn, $title, $description, $hours, $teacher);
+
+if ($result === "exists") {
+    echo "<p class='text-red-500 mb-4'>Course déjà existe</p>";
+} else {
+    header("Location: ../dashboard-admin.php?page=courses");
+    exit();
+}    }
 }
+$teachers = getTeachers($conn);
+$courses = getCoursesWithTeachers($conn);
 ?>
 
 <div class="flex justify-between items-center mb-8">
