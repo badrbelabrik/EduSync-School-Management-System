@@ -1,7 +1,16 @@
 <?php 
 session_start();
 if(isset($_SESSION["username"])){
-  header("location: ./dashboard.php");
+          if($_SESSION["role"] == 1){
+            header("location: ../public/dashboard-admin.php");
+            exit();
+        } else if($_SESSION["role"] == 2){
+            header("location: ../public/dashboard-prof.php");
+            exit();
+        } else if($_SESSION["role"] == 3){
+            header("location: ../public/dashboard-student.php");
+            exit();
+        }
 }
 include '../includes/header.php';
 ?>
