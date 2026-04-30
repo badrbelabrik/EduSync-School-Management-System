@@ -80,8 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Status</label>
                     <select name="status" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all bg-white">
                       <option value="">Choose Status</option>
-                      <option value="active">En cours</option>
-                      <option value="inactive">Approuvée</option>
+                      <option value="En cours">En cours</option>
+                      <option value="Approuvée">Approuvée</option>
                     </select>
                 </div>
 
