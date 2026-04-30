@@ -50,3 +50,4 @@ function getStudentsByClass($conn, $class_id) {
     $stmt->execute([$class_id]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+k
