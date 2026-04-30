@@ -156,23 +156,54 @@ function getUsers($conn) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getClasses($conn) {
-    $stmt = $conn->prepare("SELECT * FROM classes");
-    $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+function updateUser($conn,$firstname,$lastname,$email,$role,$id){
+    $stmt = $conn->prepare("
+        UPDATE users 
+        SET firstname = :firstname,
+            lastname = :lastname,
+            email = :email,
+            id_role = :role
+        WHERE id = :id
+    ");
+
+    $stmt->execute([
+        ':firstname' => $firstname,
+        ':lastname' => $lastname,
+        ':email' => $email,
+        ':role' => $role,
+        ':id' => $id
+    ]);
+
+    header("Location: ../public/dashboard-admin.php?page=users");
+    exit();
 }
 
-function getCourses($conn) {
-    $stmt = $conn->prepare("SELECT * FROM courses");
-    $stmt->execute();
+function deleteUser($conn,$userid){
+    $stmt = $conn->prepare("delete from users where id = :id");
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->execute([':id' => $userid]);
+    header("Location: ../public/dashboard-admin.php?page=users");
+    exit();
 }
 
-function getStudents($conn) {
-    $stmt = $conn->prepare("SELECT * FROM users WHERE id_role = 3");
-    $stmt->execute();
+function createClass($conn,$classname,$classroom){
+        $query = "INSERT INTO classes (name, classroom_number)
+              VALUES (:name, :classroom_number)";
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare($query);
+
+    try {
+        $stmt->execute([
+            ':name' => $classname,
+            ':classroom_number'  => $classroom
+        ]);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+
+    } catch (PDOException $e) {
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 }
