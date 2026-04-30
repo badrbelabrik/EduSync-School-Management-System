@@ -15,7 +15,7 @@ $result = addCourse($conn, $title, $description, $hours, $teacher);
 if ($result === "exists") {
     echo "<p class='text-red-500 mb-4'>Course déjà existe</p>";
 } else {
-    header("Location: ../dashboard-admin.php?page=courses");
+    header("Location: ../public/dashboard-admin.php?page=courses");
     exit();
 }    }
 }
