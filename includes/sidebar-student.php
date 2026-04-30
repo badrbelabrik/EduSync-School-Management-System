@@ -1,5 +1,5 @@
+
 <?php
-// Had l-logic ghir bach n-detectiw l-page l-current o n-baynouha "Active"
 $current_page = $_GET['page'] ?? 'users';
 ?>
 
@@ -18,38 +18,31 @@ $current_page = $_GET['page'] ?? 'users';
     <nav class="space-y-2 flex-1">
         <p class="px-4 text-xs font-semibold text-blue-300/50 uppercase tracking-widest mb-4">Main Menu</p>
 
-        <a href="dashboard-admin.php?page=users" 
+        <a href="dashboard-student.php?page=profil" 
            class="flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group <?= $current_page == 'users' ? 'bg-blue-600 shadow-lg shadow-blue-900/50' : 'hover:bg-white/5 text-blue-100/80 hover:text-white' ?>">
             <span class="<?= $current_page == 'users' ? 'text-white' : 'text-blue-400 group-hover:scale-110' ?> transition-transform">👤</span>
-            <span class="font-medium">Users Management</span>
+            <span class="font-medium">profil</span>
         </a>
 
-        <a href="dashboard-admin.php?page=classes" 
+        <a href="dashboard-student.php?page=mesCours" 
            class="flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group <?= $current_page == 'classes' ? 'bg-blue-600 shadow-lg shadow-blue-900/50' : 'hover:bg-white/5 text-blue-100/80 hover:text-white' ?>">
             <span class="<?= $current_page == 'classes' ? 'text-white' : 'text-blue-400 group-hover:scale-110' ?> transition-transform">🏫</span>
-            <span class="font-medium">Classes</span>
+            <span class="font-medium"> Mes cours</span>
         </a>
 
-        <a href="dashboard-admin.php?page=courses" 
-           class="flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group <?= $current_page == 'courses' ? 'bg-blue-600 shadow-lg shadow-blue-900/50' : 'hover:bg-white/5 text-blue-100/80 hover:text-white' ?>">
-            <span class="<?= $current_page == 'courses' ? 'text-white' : 'text-blue-400 group-hover:scale-110' ?> transition-transform">📚</span>
-            <span class="font-medium">Courses</span>
-        </a>
+        
 
-        <a href="dashboard-admin.php?page=enrollments" 
+        <a href="dashboard-student.php?page=mesCamarades" 
            class="flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group <?= $current_page == 'enrollments' ? 'bg-blue-600 shadow-lg shadow-blue-900/50' : 'hover:bg-white/5 text-blue-100/80 hover:text-white' ?>">
             <span class="<?= $current_page == 'enrollments' ? 'text-white' : 'text-blue-400 group-hover:scale-110' ?> transition-transform">📝</span>
-            <span class="font-medium">Enrollments</span>
+            <span class="font-medium"> Mes camarades</span>
         </a>
 
-        <div class="pt-6">
-            <p class="px-4 text-xs font-semibold text-blue-300/50 uppercase tracking-widest mb-4">Reports</p>
-            <a href="dashboard-admin.php?page=stats" 
+            <a href="dashboard-student.php?page=metiers" 
                class="flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group <?= $current_page == 'stats' ? 'bg-blue-600 shadow-lg shadow-blue-900/50' : 'hover:bg-white/5 text-blue-100/80 hover:text-white' ?>">
                 <span class="<?= $current_page == 'stats' ? 'text-white' : 'text-blue-400 group-hover:scale-110' ?> transition-transform">📊</span>
-                <span class="font-medium">Statistics</span>
+                <span class="font-medium">Liste des metiers</span>
             </a>
-        </div>
     </nav>
 
   
