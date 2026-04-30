@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div id="userModal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50">
+<div id="userModal" class="hidden fixed inset-0 z-50 flex items-start justify-center pt-10 bg-black bg-opacity-50 overflow-y-auto">
 
     <div class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6">
         
@@ -58,7 +58,7 @@
                 <label class="block text-sm font-semibold text-blue-900 mb-1">
                     Role
                 </label>
-                <select name="role"
+                <select name="role" id="roleSelect"
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
                     <option value="">Select role</option>
                     <option value="1">Admin</option>
@@ -66,6 +66,40 @@
                     <option value="3">Student</option>
                 </select>
             </div>
+            <div id="studentFields" class="hidden space-y-4 pt-4 border-t">
+
+    <div>
+        <label class="block text-sm font-semibold text-blue-900 mb-1">
+            Date of birth
+        </label>
+        <input type="date" name="dateofbirth"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
+    </div>
+
+    <div>
+        <label class="block text-sm font-semibold text-blue-900 mb-1">
+            Student number
+        </label>
+        <input type="text" name="student_number"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
+    </div>
+
+    <div>
+        <label class="block text-sm font-semibold text-blue-900 mb-1">
+            Class
+        </label>
+        <select name="id_classe"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <option value="">Select class</option>
+            <?php foreach ($classes as $class): ?>
+                <option value="<?php echo $class['id']; ?>">
+                    <?php echo htmlspecialchars($class['name']); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+</div>
 
             <!-- Actions -->
             <div class="flex justify-end gap-3 pt-4 border-t">
@@ -96,4 +130,14 @@ function closeAddModal() {
     modal.classList.add("hidden");
     modal.classList.remove("flex");
 }
+const roleSelect = document.getElementById("roleSelect");
+const studentFields = document.getElementById("studentFields");
+
+roleSelect.addEventListener("change", function () {
+    if (this.value === "3") {
+        studentFields.classList.remove("hidden");
+    } else {
+        studentFields.classList.add("hidden");
+    }
+});
 </script>
