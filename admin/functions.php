@@ -1,7 +1,4 @@
 <?php
-
-
-
 function getTeachers($conn)
 {
     $sql = "SELECT id, firstname, lastname 
