@@ -59,9 +59,11 @@ function getCoursesWithTeachers($conn)
 
 function getStudents($conn)
 {
-    $sql = "SELECT id, firstname, lastname 
+    $sql = "SELECT students.id as studentId, users.firstname as firstname, users.lastname as lastname 
             FROM users 
-            WHERE id_role = 3";
+            INNER JOIN students
+            on students.id_user=users.id
+            WHERE id_role = 3 ";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -82,13 +84,24 @@ function getCourses($conn)
 }
 function getenrollStudent($conn)
 {
-    $sql = "SELECT * FROM enrollments";
+    $sql = "SELECT 
+        enrollments.id,
+        enrollments.enrolled_at,
+        enrollments.status,
+        enrollments.id_student,
+        enrollments.id_course,
+        users.firstname AS student,
+        courses.title AS course
+    FROM enrollments 
+    JOIN students ON enrollments.id_student = students.id
+    JOIN users ON students.id_user = users.id
+    JOIN courses ON enrollments.id_course = courses.id";
+
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 //   register un etudiant dans un cours
 function enrollStudent($conn, $status, $student_id, $course_id)
 {
