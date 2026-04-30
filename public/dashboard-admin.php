@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 
 if (!isset($_SESSION['userid']) || $_SESSION['role'] != 1) {
     header("Location: ../login.php");
@@ -48,3 +49,6 @@ $allowedPages = ['users', 'courses', 'enrollments', 'stats', 'classes'];
 
 </body>
 </html>
+<?php 
+ob_end_flush();
+?>

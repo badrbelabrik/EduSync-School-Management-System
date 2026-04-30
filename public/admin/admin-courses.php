@@ -1,8 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../includes/connection.php");
 require_once(__DIR__ . "/../../admin/functions.php");
-$teachers = getTeachers($conn);
-$courses = getCoursesWithTeachers($conn);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
@@ -16,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
+$teachers = getTeachers($conn);
+$courses = getCoursesWithTeachers($conn);
 ?>
 
 <div class="flex justify-between items-center mb-8">

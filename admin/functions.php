@@ -16,6 +16,15 @@ function getTeachers($conn)
 
 function addCourse($conn, $title, $description, $total_hours, $id_prof)
 {
+    
+    $check = $conn->prepare("SELECT * FROM courses WHERE title = :title");
+    $check->execute(['title' => $title]);
+
+    if ($check->rowCount() > 0) {
+        return "exists"; 
+    }
+
+
     $sql = "INSERT INTO courses(title, description, total_hours, id_prof)
             VALUES(:title, :description, :total_hours, :id_prof)";
 
