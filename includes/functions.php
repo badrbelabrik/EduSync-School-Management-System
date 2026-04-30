@@ -226,3 +226,41 @@ function createClass($conn,$classname,$classroom){
         exit();
     }
 }
+
+function addStudent($conn,$dateofbirth,$student_number,$id_classe,$id_user) {
+
+    $query = "INSERT INTO students (dateofbirth, student_number, id_classe, id_user)
+              VALUES (:dateofbirth, :student_number, :id_classe, :id_user)";
+
+    $stmt = $conn->prepare($query);
+
+    try {
+        $stmt->execute([
+            ':dateofbirth' => $dateofbirth,
+            ':student_number' => $student_number,
+            ':id_classe' => $id_classe,
+            ':id_user' => $id_user
+        ]);
+
+    } catch (PDOException $e) {
+        die("Error adding student: " . $e->getMessage());
+    }
+}
+
+function createUserAdmin($conn, $firstname, $lastname, $email, $password, $role) {
+
+    $query = "INSERT INTO users (firstname, lastname, email, password, id_role)
+              VALUES (:firstname, :lastname, :email, :password, :role)";
+
+    $stmt = $conn->prepare($query);
+
+    $stmt->execute([
+        ':firstname' => $firstname,
+        ':lastname'  => $lastname,
+        ':email'     => $email,
+        ':password'  => password_hash($password, PASSWORD_DEFAULT),
+        ':role'      => $role
+    ]);
+
+    return $conn->lastInsertId();
+}

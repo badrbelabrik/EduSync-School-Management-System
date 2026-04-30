@@ -26,3 +26,4 @@ function getStudents($conn) {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+

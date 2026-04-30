@@ -1,3 +1,4 @@
+<?php $classes = getClasses($conn); ?>
 <!-- Modal -->
 <div id="userModal" class="hidden fixed inset-0 z-50 flex items-start justify-center pt-10 bg-black bg-opacity-50 overflow-y-auto">
 
