@@ -35,8 +35,6 @@ $current_page = $_GET['page'] ?? 'users';
             <span class="font-medium">STUDENTS OF MY COURSES
             </span>
 
-
-
     </nav>
 
 
